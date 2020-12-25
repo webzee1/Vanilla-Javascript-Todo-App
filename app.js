@@ -6,6 +6,7 @@ const todoList = document.querySelector('.todo-list');
 //Event Listeners
 
 todoButton.addEventListener("click" , addTodo);
+todoList.addEventListener("click" , deleteCheck);
 
 //Functions
 
@@ -40,4 +41,35 @@ function addTodo(event) {
 
     //APPEND TO LIST
     todoList.appendChild(todoDiv);
+
+    //Clear Todo Input Value as an Default
+    todoInput.value = "";
+
+    
 }
+
+
+// Delete Todo List Item
+function deleteCheck(e) {
+    const item = e.target;
+    // DELETE TODO
+    if(item.classList[0] === "trash-btn"){
+        const todo = item.parentElement;
+
+        // "fall" class contain delete animation
+        todo.classList.add("fall");
+        // transitionend It'll wait until the animation end and after that Element should be remove
+        todo.addEventListener("transitionend" , function(){
+            todo.remove();
+        });
+        
+    }
+
+    //Check Mark
+    if(item.classList[0] === "complete-btn"){
+        const todo = item.parentElement;
+        todo.classList.toggle("completed");
+    }
+}
+
+
